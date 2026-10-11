@@ -31,13 +31,19 @@ class ModelTests(TestCase):
         ]
 
         for email, expected in sample_emails:
-            user = get_user_model().objects.create_user(email=email, password='Testpass123')  # type: ignore
+            user = get_user_model().objects.create_user(
+                email=email,
+                password='Testpass123'
+            )  # type: ignore
             self.assertEqual(user.email, expected)
 
     def test_new_user_without_email_raises_error(self):
         """Test creating a user without an email raises a ValueError."""
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user(email=None, password='Testpass123')  # type: ignore
+            get_user_model().objects.create_user(
+                email=None,
+                password='Testpass123'
+            )  # type: ignore
 
     def test_create_superuser(self):
         """Test creating a new superuser."""
