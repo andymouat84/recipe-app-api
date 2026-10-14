@@ -1,5 +1,6 @@
 services:
   app:
+    image: recipe-app-api
     build:
       context: .
     restart: always
