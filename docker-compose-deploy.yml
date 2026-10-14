@@ -31,11 +31,28 @@ services:
     restart: always
     depends_on:
       - app
-    ports:
-      - 80:8000
     volumes:
       - static-data:/vol/static
+
+  caddy:
+    build:
+      context: ./caddy
+    restart: always
+    depends_on:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    environment:
+      - DOMAIN=${DOMAIN}
+      - ACME_EMAIL=${ACME_EMAIL}
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
 
 volumes:
   postgres-data:
   static-data:
+  caddy-data:
+  caddy-config:
